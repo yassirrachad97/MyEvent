@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\AthController;
+use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +18,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AthController::class,'show'])->name('auth.login');
 Route::post('/login', [AthController::class,'login'])->name('login');
+Route::post('/signIn', [AthController::class,'signIn'])->name('signIn');
+Route::get('/', [HomeController::class,'index'])->name('home');
+Route::get('/logout', [AthController::class, 'logout'])->name('auth.logout');
+
+
+Route::get('/evenements', [EvenementController::class, 'index'])->name('evenements.index');
+Route::get('/evenements/create', [EvenementController::class, 'create'])->name('evenements.create');
+Route::post('/evenements', [EvenementController::class, 'store'])->name('evenements.store');
+Route::get('/evenements/{evenement}', [EvenementController::class, 'show'])->name('evenements.show');
+Route::get('/evenements/{evenement}/edit', [EvenementController::class, 'edit'])->name('evenements.edit'); 
+Route::put('/evenements/{evenement}', [EvenementController::class, 'update'])->name('evenements.update');
+Route::delete('/evenements/{evenement}', [EvenementController::class, 'destroy'])->name('evenements.destroy');
