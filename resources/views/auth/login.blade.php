@@ -44,7 +44,7 @@
 			<span>or use your account</span>
             <input type="email" id="email" name="email" placeholder="Email" />
             <input type="password" id="password" name="password" placeholder="Password" />
-			<a href="#">Forgot your password?</a>
+			<a href="{{ route('forget.password.get') }}">Forgot your password?</a>
 			<button>Sign In</button>
 		</form>
 	</div>
