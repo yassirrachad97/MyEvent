@@ -16,7 +16,7 @@ class Evenement extends Model
         'date',
         'image',
         'organisateur_id',
-        'categorie_id',
+        'categories_id',
         'localisation_id',
 
     ];
@@ -27,5 +27,9 @@ class Evenement extends Model
 
     public function categorie(){
         return $this->belongsTo(Categorie::class);
+    }
+
+    public function localisation(){
+        return $this->belongsTo(Localisation::class);
     }
 }

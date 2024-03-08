@@ -13,16 +13,12 @@ class CategorieController extends Controller
     public function index()
     {
         $categories = Categorie::all();
-        return view('categories.index', compact('categories'));
+        return view('backOffice.categorie', compact('categories'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        return view('categories.create');
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -35,7 +31,7 @@ class CategorieController extends Controller
 
         Categorie::create($request->all());
 
-        return redirect()->route('categories.index')->with('success', 'Category created successfully.');
+        return redirect()->back()->with('success', 'Category created successfully.');
     }
 
     /**
@@ -49,10 +45,6 @@ class CategorieController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Categorie $categorie)
-    {
-        return view('categories.edit', compact('categorie'));
-    }
 
     /**
      * Update the specified resource in storage.
@@ -63,9 +55,10 @@ class CategorieController extends Controller
             'name' => 'required|string|max:255',
         ]);
         $categorie-> name = $request->input("name");
+       $categorie->update();
 
 
-        return redirect()->route('categories.index')->with('success', 'Category updated successfully.');
+        return redirect()->back()->with('success', 'Category updated successfully.');
     }
 
     /**

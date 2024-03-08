@@ -35,7 +35,7 @@ Route::post('reset-password', [ForgotPasswordController::class, 'submitResetPass
 
 
 Route::get('/evenements', [EvenementController::class, 'index'])->name('evenements.index');
-Route::get('/evenements/create', [EvenementController::class, 'create'])->name('evenements.create');
+
 Route::post('/evenements', [EvenementController::class, 'store'])->name('evenements.store');
 Route::get('/evenements/{evenement}', [EvenementController::class, 'show'])->name('evenements.show');
 Route::get('/evenements/{evenement}/edit', [EvenementController::class, 'edit'])->name('evenements.edit');
@@ -43,10 +43,7 @@ Route::put('/evenements/{evenement}', [EvenementController::class, 'update'])->n
 Route::delete('/evenements/{evenement}', [EvenementController::class, 'destroy'])->name('evenements.destroy');
 
 Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
-Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
 Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
-Route::get('/categories/{categorie}', [CategorieController::class, 'show'])->name('categories.show');
-Route::get('/categories/{categorie}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
 Route::put('/categories/{categorie}', [CategorieController::class, 'update'])->name('categories.update');
 Route::delete('/categories/{categorie}', [CategorieController::class, 'destroy'])->name('categories.destroy');
-
+Route::get('/users/{id}', [AthController::class, 'index'])->name('users.index');
