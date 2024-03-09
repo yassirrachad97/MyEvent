@@ -185,3 +185,43 @@ font-family: 'EB Garamond', serif;
 .product-image:hover img {transform: scale(1.2, 1.2);}
 
 
+
+
+.h-full {
+    height: 95vh;
+}
+
+
+/* Style for links within .nav-links */
+.custom-links a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.3s, background-color 0.3s;
+}
+
+.custom-links a:hover {
+    color: #007bff;
+    background-color: #f8f9fa;
+}
+
+.custom-links a i {
+    margin-right: 10px;
+}
+
+.custom-links a span {
+    margin-right: 5px;
+}
+
+/* Style for links within .logout-mode */
+.logout-mode a {
+    color: #dc3545; /* Red color */
+}
+
+.logout-mode a:hover {
+    color: #c82333; /* Darker red color */
+}
+

@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Evenement;
 use App\Http\Requests\StoreEvenementRequest;
 use App\Http\Requests\UpdateEvenementRequest;
+use App\Models\Categorie;
+use App\Models\Localisation;
+use Exception;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EvenementController extends Controller
 {
@@ -13,10 +18,18 @@ class EvenementController extends Controller
          * Display a listing of the resource.
          */
         public function index()
-        {
-            $evenements = Evenement::all();
-            return view('evenements.index', compact('evenements'));
-        }
+    {
+        $evenements = Evenement::all();
+        $categories = Categorie::all();
+        $localisation = Localisation::all();
+
+        $data = [
+            'evenements' => $evenements,
+            'categories' => $categories,
+            'Localisation' => $localisation,
+        ];
+        return view('backOffice.evenement', compact('data'));
+    }
 
         /**
          * Show the form for creating a new resource.
@@ -29,11 +42,45 @@ class EvenementController extends Controller
         /**
          * Store a newly created resource in storage.
          */
-        public function store(StoreEvenementRequest $request)
+        public function store(Request $request)
         {
-            Evenement::create($request->validated());
+            // Valider les données du formulaire
+            try {
+                $validatedData = $request->validate([
+                    'title' => 'required|string|max:255',
+                    'description' => 'required|string|max:255',
+                    'content' => 'required|string',
+                    'date' => 'required|date',
+                    'localisation_id' => 'required|exists:localisations,id',
+                    'categories_id' => 'required|exists:categories,id',
+                    'image' => 'required|image|max:2048',
+                ]);
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+
+            // Vérifier si une image a été téléchargée
+            if ($request->hasFile('image')) {
+                // Stocker l'image dans le dossier 'uploads' du dossier 'public'
+                $imagePath = $request->file('image')->store('uploads', 'public');
+            }
+
+            // Créer un nouvel événement avec les données validées et l'emplacement de l'image
+            $evenement = Evenement::create([
+                'title' => $validatedData['title'],
+                'description' => $validatedData['description'],
+                'content' => $validatedData['content'],
+                'date' => $validatedData['date'],
+                'localisation_id' => $validatedData['localisation_id'],
+                'categories_id' => $validatedData['categories_id'],
+                'organisateur_id' => 2,
+                'image' => $imagePath ?? null,
+            ]);
+
+            // Rediriger avec un message de succès
             return redirect()->route('evenements.index')->with('success', 'Événement créé avec succès.');
         }
+
 
         /**
          * Display the specified resource.
